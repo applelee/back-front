@@ -43,8 +43,10 @@ const errorHandler = (error: { response: Response }): void => {
  * 配置request请求时的默认参数
  */
 const request = extend({
+  maxCache: 10,
   errorHandler, // 默认错误处理
-  credentials: 'include', // 默认请求是否带上cookie
+  prefix: 'http://127.0.0.1:3000/api/v1',
+  mode: 'cors',
 });
 
 export default request;

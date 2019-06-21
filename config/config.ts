@@ -1,14 +1,10 @@
 import { IConfig, IPlugin } from 'umi-types';
+import defaultSettings from './defaultSettings'; // https://umijs.org/config/
 
-import defaultSettings from './defaultSettings';
-// https://umijs.org/config/
 import os from 'os';
 import slash from 'slash2';
 import webpackPlugin from './plugin.config';
-
-const { pwa, primaryColor } = defaultSettings;
-
-// preview.pro.ant.design only do not use in your production ;
+const { pwa, primaryColor } = defaultSettings; // preview.pro.ant.design only do not use in your production ;
 // preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
 
 const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION, TEST, NODE_ENV } = process.env;
@@ -115,18 +111,23 @@ export default {
       ],
     },
     {
-      path: '/',
+      path: '/welcome',
       component: '../layouts/BasicLayout',
       Routes: ['src/pages/Authorized'],
       authority: ['admin', 'user'],
       routes: [
         {
-          path: '/',
+          path: '/welcome',
           name: 'welcome',
           icon: 'smile',
           component: './Welcome',
         },
       ],
+    },
+    {
+      name: 'name',
+      path: '*',
+      component: './exception/404',
     },
   ],
   // Theme for antd
