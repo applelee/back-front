@@ -100,9 +100,8 @@ export default {
   routes: [
     {
       path: '/user/login',
-      component: '../layouts/UserLayout',
       Routes: ['src/pages/Authorized'],
-      authority: ['admin', 'user'],
+      component: '../layouts/UserLayout',
       routes: [
         {
           path: '/user/login',
@@ -111,24 +110,35 @@ export default {
       ],
     },
     {
-      path: '/welcome',
-      component: '../layouts/BasicLayout',
+      path: '/',
+      redirect: '/welcome',
+    },
+    {
+      path: '/',
+      locale: 'menu',
       Routes: ['src/pages/Authorized'],
-      authority: ['admin', 'user'],
+      component: '../layouts/BasicLayout',
       routes: [
         {
           path: '/welcome',
           name: 'welcome',
           icon: 'smile',
+          authority: ['admin', 'user'],
           component: './Welcome',
         },
+        {
+          path: '/user/management',
+          name: 'user-management',
+          icon: 'user',
+          authority: ['admin'],
+          component: './user/management',
+        },
+        {
+          path: '/*',
+          component: './exception/404',
+        },
       ],
-    },
-    {
-      name: 'name',
-      path: '*',
-      component: './exception/404',
-    },
+    }
   ],
   // Theme for antd
   // https://ant.design/docs/react/customize-theme-cn

@@ -4,6 +4,7 @@ import React from 'react';
 import Redirect from 'umi/redirect';
 import { connect } from 'dva';
 import pathToRegexp from 'path-to-regexp';
+import { getAuthority } from '@/utils/authority';
 
 interface AuthComponentProps extends ConnectProps {
   user: UserModelState;
@@ -21,6 +22,7 @@ const getRouteAuthority = (path: string, routeData: Route[]) => {
       }
     }
   });
+  
   return authorities;
 };
 
@@ -36,7 +38,13 @@ const AuthComponent: React.FC<AuthComponentProps> = ({
 }) => {
   const { currentUser } = user;
   const { routes = [] } = route;
-  const isLogin = currentUser && currentUser.name;
+  let isLogin = false;
+  let temp: any = getAuthority();
+  
+  if (temp && temp[0])
+    isLogin = true;
+
+  console.log(location.pathname, getRouteAuthority(location.pathname, routes))
   return (
     <Authorized
       authority={getRouteAuthority(location.pathname, routes) || ''}
